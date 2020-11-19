@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+.mpopup {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+.mpopup-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    width: 60%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+.mpopup-head {
+    padding: 2px 16px;
+    background-color: #ff0000;
+    color: white;
+}
+.mpopup-main {padding: 2px 16px;}
+@-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+.close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+.close:hover, .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+#myInput {
+  background-image: url('/css/searchicon.png');
+  background-position: 10px 12px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+#myUL {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+#myUL li a {
+  border: 1px solid #ddd;
+  margin-top: -1px; /* Prevent double borders */
+  background-color: #f6f6f6;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  color: black;
+  display: block
+}
+#myUL li a:hover:not(.header) {
+  background-color: #eee;
+}
+.dropdown-check-list {
+  display: inline-block;
+}
+.dropdown-check-list .anchor {
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  padding: 5px 50px 5px 10px;
+  border: 1px solid #ccc;
+}
+.dropdown-check-list .anchor:after {
+  position: absolute;
+  content: "";
+  border-left: 2px solid black;
+  border-top: 2px solid black;
+  padding: 5px;
+  right: 10px;
+  top: 20%;
+  -moz-transform: rotate(-135deg);
+  -ms-transform: rotate(-135deg);
+  -o-transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+  transform: rotate(-135deg);
+}
+.dropdown-check-list .anchor:active:after {
+  right: 8px;
+  top: 21%;
+}
+.dropdown-check-list ul.items {
+  padding: 2px;
+  display: none;
+  margin: 0;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+.dropdown-check-list ul.items li {
+  list-style: none;
+}
+.dropdown-check-list.visible .anchor {
+  color: #0094ff;
+}
+.dropdown-check-list.visible .items {
+  display: block;
+}
+</style>
+</head>
+<body>   
+<h2>Filter</h2>
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+<ul id="myUL">
+  <li><div id="list1" class="dropdown-check-list" tabindex="100">
+    <span class="anchor">Price</span>
+    <ul class="items">
+      <li><input type="checkbox" />5000-10000 </li>
+      <li><input type="checkbox" />10000-15000</li>
+      <li><input type="checkbox" />15000-20000</li>
+      <li><input type="checkbox" />20000-50000</li>
+    </ul>
+  </div></li>
+  <li><div id="list2" class="dropdown-check-list" tabindex="100">
+    <span class="anchor">Brand</span>
+    <ul class="items">
+      <li><input type="checkbox" />Samsung</li>
+      <li><input type="checkbox" />Realme</li>
+      <li><input type="checkbox" />Redmi</li>
+      <li><input type="checkbox" />Oppo</li>
+    </ul>
+  </div></li>
+  <li><div id="list3" class="dropdown-check-list" tabindex="100">
+    <span class="anchor">Rating</span>
+    <ul class="items">
+      <li><input type="checkbox" />2 Star</li>
+      <li><input type="checkbox" />3 Star</li>
+      <li><input type="checkbox" />4 Star</li>
+      <li><input type="checkbox" />5 Star</li>
+    </ul>
+  </div></li>
+  <li><div id="list4" class="dropdown-check-list" tabindex="100">
+    <span class="anchor">RAM</span>
+    <ul class="items">
+      <li><input type="checkbox" />2GB</li>
+      <li><input type="checkbox" />4GB</li>
+      <li><input type="checkbox" />6GB</li>
+      <li><input type="checkbox" />8GB</li>
+    </ul>
+  </div></li>
+  <li><div id="list5" class="dropdown-check-list" tabindex="100">
+    <span class="anchor">Internal Storage</span>
+    <ul class="items">
+      <li><input type="checkbox" /> 32GB </li>
+      <li><input type="checkbox" />64GB</li>
+      <li><input type="checkbox" />128GB</li>
+    </ul>
+  </div></li>
+</ul>
+<br><br>
+<button type="button" onclick="zoomIn()">  
+    Zoom-In 
+</button> 
+<button type="button" onclick="zoomOut()">  
+    Zoom-Out 
+</button>
+<br><br>
+<a href="javascript:void(0);" id="mpopupLink">FeedBack</a>
+<div id="mpopupBox" class="mpopup">
+    <div class="mpopup-content">
+        <div class="mpopup-head">
+            <span class="close">×</span>
+            <h2>Feedback</h2>
+        </div>
+        <div class="mpopup-main">
+            <form action="URL to form script" method="POST">
+                Your name: <br>
+                <input type="text" name="realname"><br>
+                <br>
+                Your email: <br>
+                <input type="text" name="email"><br>
+                <br>
+                Your comments: <br>
+                <textarea name="comments" rows="15" cols="50"></textarea><br><br>
+                <input type="submit" value="Submit">
+                </form>
+        </div>
+    </div>
+</div>
+<script>
+    function zoomIn()
+{
+    var Page = document.getElementById('body');
+    var zoom = parseInt(Page.style.zoom) + 10 +'%'
+    Page.style.zoom = zoom;
+    return false;
+}
+function zoomOut()
+{
+    var Page = document.getElementById('body');
+    var zoom = parseInt(Page.style.zoom) - 10 +'%'
+    Page.style.zoom = zoom;
+    return false;
+}
+    var checkList1 = document.getElementById("list1");
+    var checkList2 = document.getElementById("list2");
+    var checkList3 = document.getElementById("list3");
+    var checkList4 = document.getElementById("list4");
+    var checkList5 = document.getElementById("list5");
+    checkList1.getElementsByClassName('anchor')[0].onclick = function(evt) {
+    if (checkList1.classList.contains('visible'))
+        checkList1.classList.remove('visible');
+    else
+        checkList1.classList.add('visible');
+    }
+    checkList2.getElementsByClassName('anchor')[0].onclick = function(evt) {
+    if (checkList2.classList.contains('visible'))
+        checkList2.classList.remove('visible');
+    else
+        checkList2.classList.add('visible');
+    }
+    checkList3.getElementsByClassName('anchor')[0].onclick = function(evt) {
+    if (checkList3.classList.contains('visible'))
+        checkList3.classList.remove('visible');
+    else
+        checkList3.classList.add('visible');
+    }
+    checkList4.getElementsByClassName('anchor')[0].onclick = function(evt) {
+    if (checkList4.classList.contains('visible'))
+        checkList4.classList.remove('visible');
+    else
+        checkList4.classList.add('visible');
+    }
+    checkList5.getElementsByClassName('anchor')[0].onclick = function(evt) {
+    if (checkList5.classList.contains('visible'))
+        checkList5.classList.remove('visible');
+    else
+        checkList5.classList.add('visible');
+    }
+var mpopup = document.getElementById('mpopupBox');
+var mpLink = document.getElementById("mpopupLink");
+var close = document.getElementsByClassName("close")[0];
+mpLink.onclick = function() {
+    mpopup.style.display = "block";
+}
+close.onclick = function() {
+    mpopup.style.display = "none";
+}
+window.onclick = function(event) {
+    if (event.target == mpopup) {
+        mpopup.style.display = "none";
+    }
+}
+    function myFunction() {       
+        var input, filter, ul, li, a, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("myUL");
+        li = ul.getElementsByTagName("li");
+        for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByTagName("a")[0];
+            txtValue = a.textContent || a.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
+    }
+    </script>
+</body>
+</html>
